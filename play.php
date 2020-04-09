@@ -23,7 +23,7 @@
             <div class="inner">
                 <h3 class="masthead-brand">ProperLab Media</h3>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="#">Inicio</a>
+                    <a class="nav-link active" href="/">Inicio</a>
                     <a class="nav-link" href="mailto:contact.properlab@gmail.com">Contactanos</a>
                 </nav>
             </div>

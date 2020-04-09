@@ -24,7 +24,7 @@
             <div class="inner">
                 <h3 class="masthead-brand">ProperLab Media</h3>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="#">Inicio</a>
+                    <a class="nav-link active" href="/">Inicio</a>
                     <a class="nav-link" href="mailto:contact.properlab@gmail.com">Contactanos</a>
                 </nav>
             </div>
@@ -43,12 +43,12 @@
 
         <!-- Modal -->
         <div class="modal fade" id="startSesion" tabindex="-1" role="dialog" aria-labelledby="startSesionTitle"
-            aria-hidden="true">
+            aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="startSesionLongTitle">Iniciar Vídeo Online</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button id="salir" type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -58,12 +58,14 @@
                             (Ejemplo:https://example.com/video<b>.mp4</b>)</p>
                         <label for="video-url">Fuente del vídeo</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="video-url" placeholder="https://example.com/video.mp4">
+                            <input type="url" class="form-control" id="video-url"
+                                placeholder="https://example.com/video.mp4">
                         </div>
+                        <div id="message"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">¡Empezar!</button>
+                        <button id="cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button id="datos" type="button" class="btn btn-primary">¡Empezar!</button>
                     </div>
                 </div>
             </div>
@@ -80,6 +82,7 @@
     <script src="/assets/vendor/js/jquery-3.4.1.min.js"></script>
     <script src="/assets/vendor/js/popper.min.js"></script>
     <script src="/assets/vendor/bootsrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
 
 </body>
 
