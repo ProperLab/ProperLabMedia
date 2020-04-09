@@ -1,4 +1,4 @@
-<img src="">
+<img src="/assets/img/icon/properlab.png">
 
 ## Introducción
 
