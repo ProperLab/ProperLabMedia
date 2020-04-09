@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="es">
-  <head>
-      
+
+<head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Un reproductor multimedia minimalista online para ver series o películas con amigos.">
+    <meta name="description"
+        content="Un reproductor multimedia minimalista online para ver series o películas con amigos.">
     <meta name="author" content="ProperLab">
 
     <title>ProperLab Media</title>
@@ -13,39 +15,72 @@
     <link href="/assets/vendor/bootsrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/css/styles.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body class="text-center">
+<body class="text-center">
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">ProperLab Media</h3>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="#">Inicio</a>
-            <a class="nav-link" href="mailto:contact.properlab@gmail.com">Contactanos</a>
-          </nav>
-        </div>
-      </header>
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">ProperLab Media</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="#">Inicio</a>
+                    <a class="nav-link" href="mailto:contact.properlab@gmail.com">Contactanos</a>
+                </nav>
+            </div>
+        </header>
 
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading">ProperLab Media</h1>
-        <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>
-        <p class="lead">
-          <a href="#" class="btn btn-lg btn-secondary">¡Pulsa este increible boton!</a>
-        </p>
-      </main>
+        <main role="main" class="inner cover">
+            <h1 class="cover-heading">ProperLab Media</h1>
+            <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>
+            <p class="lead">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#startSesion">
+                    ¡Pulsa este increible botón!
+                </button>
+            </p>
+        </main>
 
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>Puedes descargar este proyecto en nuestro repositorio publico <a href="https://github.com/ProperLab/ProperLabMedia">ProperLab Media</a>.</p>
+        <!-- Modal -->
+        <div class="modal fade" id="startSesion" tabindex="-1" role="dialog" aria-labelledby="startSesionTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="startSesionLongTitle">Iniciar Vídeo Online</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Pega el enlace del video en el recuadro de abajo para empezar la sesión en-línea y obtener el
+                            enlace compartido. Recuerda que el enlace debe de ser la fuente del vídeo
+                            (Ej:https://example.com/video<b>.mp4</b>)</p>
+                        <label for="video-url">Fuente del vídeo</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="video-url">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">¡Empezar!</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </footer>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>Puedes descargar este proyecto en nuestro repositorio publico <a
+                        href="https://github.com/ProperLab/ProperLabMedia">ProperLab Media</a>.</p>
+            </div>
+        </footer>
     </div>
 
     <script src="/assets/vendor/js/jquery-3.4.1.min.js"></script>
     <script src="/assets/vendor/js/popper.min.js"></script>
     <script src="/assets/vendor/bootsrap/js/bootstrap.min.js"></script>
 
-  </body>
+</body>
+
 </html>

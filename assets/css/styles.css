@@ -101,6 +101,24 @@ body {
   font-weight: 700;
 }
 
+/*
+ * Modal
+ */
+.modal-content {
+  background-color: #333;
+}
+.close {
+  color: #fff;
+}
+.close:hover {
+  color: gray;
+}
+.modal-header {
+  border-bottom: 1px solid #555;
+}
+.modal-footer {
+  border-top: 1px solid #555;
+}
 
 /*
  * Footer
