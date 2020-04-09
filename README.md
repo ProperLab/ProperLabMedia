@@ -4,7 +4,7 @@
 
 ProperLabMedia es un reproductor multimedia minimalista online para ver series, películas o videos con amigos.
 
-ProperLabMedia está hecho usando HTML, CSS y JS.
+ProperLabMedia está hecho usando HTML, CSS, JS, PHP y MYSQL.
 
 # Tabla de Contenidos
 
@@ -21,6 +21,7 @@ Puedes ver la documentación desde la wiki del repositorio.
 ## Descarga
 Puedes descargar una copia del proyecto para hostear tu mismo o acceder a la [versión pública]()
 - [Link de Descarga](https://github.com/ProperLab/ProperLabMedia/releases)
+- [Guía de Instalación](https://github.com/ProperLab/ProperLabMedia/wiki/Gu%C3%ADa-de-Instalaci%C3%B3n)
 
 ## Roadmap
 Mira el [Roadmap](https://github.com/ProperLab/ProperLabMedia/projects) desde la página de proyectos del repositorio.

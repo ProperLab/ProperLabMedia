@@ -24,7 +24,7 @@ $(document).ready(function () {
           )
           .fadeIn();
       });
-      $("#dataform input").attr("disabled", false);
+      $("#video-url").attr("disabled", false);
       $("#datos").attr("disabled", false);
       $("#cerrar").attr("disabled", false);
       $("#salir").attr("disabled", false);
@@ -36,7 +36,7 @@ $(document).ready(function () {
           )
           .fadeIn();
       });
-      $("#dataform input").attr("disabled", false);
+      $("#video-url").attr("disabled", false);
       $("#datos").attr("disabled", false);
       $("#cerrar").attr("disabled", false);
       $("#salir").attr("disabled", false);
@@ -65,13 +65,13 @@ $(document).ready(function () {
               )
               .fadeIn();
           });
-          $("#dataform input").attr("disabled", false);
+          $("#video-url").attr("disabled", false);
           $("#datos").attr("disabled", false);
           $("#cerrar").attr("disabled", false);
           $("#salir").attr("disabled", false);
         },
         beforeSend: function () {
-          $("#dataform input").attr("disabled", true);
+          $("#video-url").attr("disabled", true);
           $("#datos").attr("disabled", true);
           $("#cerrar").attr("disabled", true);
           $("#salir").attr("disabled", true);
