@@ -49,9 +49,58 @@ require_once('api/roomhandler.php');
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/simple-sidebar.css" rel="stylesheet">
 
+    <style>
+    .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    }
+
+    .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #111;
+    display: block;
+    transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+    color: #111;
+    }
+
+    .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+    </style>
+
 </head>
 
 <body class="text-center" onload="$('#startSesion').modal('hide')">
+
+    <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Amigo 1</a>
+    <a href="#">Amigo 2</a>
+    <a href="#">Amigo 3</a>
+    <a href="#">Amigo 4</a>
+    </div>
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
@@ -82,6 +131,7 @@ require_once('api/roomhandler.php');
                 if (isset($response['id'])) {
                     echo '<div>
                     <p class="lead">¡Invita a mas gente! Comparte este link con tus amigos:</p>
+                    <p><button type="button" class="btn btn-outline-info" onclick="openNav()">Abrir menu de amigos</button></p>
                     <div class="input-group">
                         <input id="copy" type="text" class="form-control" value="http://' . $_SERVER["SERVER_NAME"] . '/play.php?p=' . $response['sala'] . '" readonly>
                         <div class="input-group-append">
@@ -165,12 +215,14 @@ require_once('api/roomhandler.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.bundle.js"></script>
     <script src="/assets/js/gulpfile.js"></script>
 
-    <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    }
     </script>
 
 </body>
