@@ -83,7 +83,27 @@ class RoomHandler
                 throw new Exception('Error al guardar la sala');
             }
 
-            return $key;
+            return ['key' => $key];
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Gets all the info of a room from a room key
+     *
+     * @param  string $salaId String with the video url
+     *
+     * @return array
+     */
+    public function getRoom($salaId)
+    {
+        try {
+            $dh = new DataHandler;
+            $room = $dh->getRoom($salaId);
+            if (!$room) throw new Exception('La sala no existe o ha sido eliminada');
+
+            return $room;
         } catch (\PDOException $e) {
             return $e->getMessage();
         }

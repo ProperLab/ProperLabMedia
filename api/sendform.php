@@ -44,19 +44,17 @@ try {
     $dh = new ProperLabMedia\RoomHandler;
     $response = $dh->createRoom($videoUrl);
     //Success
-    if ($response) {
-        // TODO: Check if is valid
+    if ($response['key']) {
         echo '<div class="alert alert-dark">
         ¡Sala creada correctamente! Comparte este link con tus amigos:
         <div class="input-group">
-            <input id="copy" type="text" class="form-control" value="http://' . $_SERVER["SERVER_NAME"] . '/play.php?p=' . $response . '" readonly>
+            <input id="copy" type="text" class="form-control" value="http://' . $_SERVER["SERVER_NAME"] . '/play.php?p=' . $response['key'] . '" readonly>
             <div class="input-group-append">
             <div class="customtooltip">
                 <button onclick="copy()" onmouseout="outFunc()" class="btn btn-dark" type="button"><span class="tooltiptext" id="myTooltip">Copiar al portapapeles</span>Copiar</button>
             </div>
             <button class="btn btn-dark" type="button" onclick="location.href=document.getElementById(\'copy\').value;">Ir</button>
             </div>
-        </div>
         </div>
 
         <script>

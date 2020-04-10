@@ -75,7 +75,7 @@ class DataHandler
     }
 
     /**
-     * Gets info from a sala key
+     * Gets info from a room key
      *
      * @param  string $salaId String with the room id
      *
