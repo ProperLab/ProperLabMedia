@@ -12,7 +12,7 @@
 
     <link rel="icon" href="/assets/img/icon/favicon.ico">
     <link href="/assets/vendor/bootsrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
 
 </head>
 
@@ -34,7 +34,7 @@
             <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>
             <p class="lead">
                 <?php
-                echo '<video src="https://propercloud.sytes.net/assets/video/code-lyoko.mp4" controls autoplay="autoplay" playsinline="true" preload="true" poster="poster.jpg" width="auto" height="auto">Tu navegador no soporta la etiqueta video.</video>';
+                echo '<video src="https://propercloud.sytes.net/assets/video/code-lyoko.mp4" controls playsinline="true" preload="true" poster="poster.jpg" width="auto" height="auto">Tu navegador no soporta la etiqueta video.</video>';
                 ?>
             </p>
         </main>
