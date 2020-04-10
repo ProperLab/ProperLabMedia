@@ -6,6 +6,7 @@ node_modules
 selenium-debug.log
 
 # local env files
+dbconf.php
 .env.local
 .env.*.local
 
@@ -22,4 +23,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-api/dbconf.php
