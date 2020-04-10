@@ -1,3 +1,37 @@
+<?php
+
+/**
+ * ProperLabMedia\SendForm
+ * @copyright Copyright (c) 2020, ProperLab <contact.properlab@gmail.com>
+ *
+ * @author MakerLab <contact.makerlab@gmail.com>
+ * @author ProperCloud <contact.propercloud@gmail.com>
+ *
+ * @license MIT
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ */
+
+require_once('api/roomhandler.php');
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -17,26 +51,7 @@
 
 </head>
 
-<body class="text-center" onload="$('#startSesion').modal('show')">
-
-<div class="d-flex" id="wrapper">
-
-<!-- Sidebar -->
-<div id="sidebar-wrapper">
-  <div class="sidebar-heading">Amigos</div>
-  <div class="list-group list-group-flush">
-    <a href="#" class="list-group-item list-group-item-action bg-white">Amigo 1</a>
-    <a href="#" class="list-group-item list-group-item-action bg-white">Amigo 2</a>
-    <a href="#" class="list-group-item list-group-item-action bg-white">Amigo 3</a>
-    <a href="#" class="list-group-item list-group-item-action bg-white">Amigo 4</a>
-    <a href="#" class="list-group-item list-group-item-action bg-white">Amigo 5</a>
-    <a href="#" class="list-group-item list-group-item-action bg-white">Amigo 6</a>
-  </div>
-</div>
-<!-- /#sidebar-wrapper -->
-
-</div>
-<!-- /#wrapper -->
+<body class="text-center" onload="$('#startSesion').modal('hide')">
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
@@ -52,15 +67,67 @@
         <main role="main" class="inner cover">
             <h1 class="cover-heading">ProperLab Media</h1>
             <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>
-            <p class="lead">¡Espera a tus amigos o dale a ProperLab para comenzar!</p>
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-            <button class="btn btn-primary" id="menu-toggle">Menu de amigos</button>
-            </div>
-            <!-- /#page-content-wrapper -->
+            <?php
+            try {
+                // Validar todo lo enviado
+                if (isset($_GET['p'])) {
+                    $roomKey = htmlspecialchars($_GET['p']);
+                } else {
+                    throw new Exception('Error al cargar la sala');
+                }
+
+                // Validacion inical pasada
+                // Mandar toda la informacion a la base de datos
+                $dh = new ProperLabMedia\RoomHandler;
+                $response = $dh->getRoom($roomKey);
+                //Success
+                if (isset($response['id'])) {
+                    echo '<div>
+                    <p class="lead">¡Invita a mas gente! Comparte este link con tus amigos:</p>
+                    <div class="input-group">
+                        <input id="copy" type="text" class="form-control" value="http://' . $_SERVER["SERVER_NAME"] . '/play.php?p=' . $response['sala'] . '" readonly>
+                        <div class="input-group-append">
+                        <div class="customtooltip">
+                            <button onclick="copy()" onmouseout="outFunc()" class="btn btn-secondary" type="button"><span class="tooltiptext" id="myTooltip">Copiar al portapapeles</span>Copiar</button>
+                        </div>
+                        </div>
+                    </div>
+                    <script>
+                    function copy() {
+                        var copyText = document.getElementById("copy");
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999);
+                        document.execCommand("copy");
+
+                        var tooltip = document.getElementById("myTooltip");
+                        tooltip.innerHTML = "¡Copiado!";
+                    }
+
+                    function outFunc() {
+                        var tooltip = document.getElementById("myTooltip");
+                        tooltip.innerHTML = "Pulsa para copiar al portapapeles";
+                    }
+                    </script>
+                    </div>';
+                    echo '<p>Fecha de creación: ' . $response['fecha'] . '<br>Las salas se eliminan tras 10 horas de ser creadas</p>';
+                    if ($response['ip'] == $_SERVER["REMOTE_ADDR"]) {
+                        echo '<p>Eres el creador de esta sala</p>';
+                        echo '<button type="button" class="btn btn-outline-danger">Borrar sala</button>';
+                    }
+                } else {
+                    //DB Failure
+                    throw new Exception('Ha ocurrido un error: ' . $response);
+                }
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo '<p class="lead">' . $e->getMessage() . '</p> <button class="btn btn-secondary" type="button" onclick="location.href=\'/\'">Crea tu propia sala</button></p>';
+            }
+            ?>
             <p class="lead">
                 <?php
-                echo '<video src="https://propercloud.sytes.net/assets/video/code-lyoko.mp4" controls playsinline="true" preload="true" poster="/assets/img/icon/favicon.ico" width="auto" height="auto">Tu navegador no soporta la etiqueta video.</video>';
+                if (isset($response['id'])) {
+                    echo '<video src="' . $response['video'] . '" controls playsinline="true" preload="true" poster="/assets/img/icon/properlab-loader.gif" width="70%" height="65%">Tu navegador no soporta la etiqueta video.</video>';
+                }
                 ?>
             </p>
         </main>
@@ -100,10 +167,10 @@
 
     <!-- Menu Toggle Script -->
     <script>
-    $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-    });
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
     </script>
 
 </body>
