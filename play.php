@@ -65,8 +65,6 @@ require_once('api/roomhandler.php');
         </header>
 
         <main role="main" class="inner cover">
-            <h1 class="cover-heading">ProperLab Media</h1>
-            <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>
             <?php
             try {
                 // Validar todo lo enviado
@@ -109,10 +107,10 @@ require_once('api/roomhandler.php');
                     }
                     </script>
                     </div>';
-                    echo '<p>Fecha de creación: ' . $response['fecha'] . '<br>Las salas se eliminan tras 10 horas de ser creadas</p>';
+                    echo '<p>Fecha de creación: ' . date('m/d/Y H:i:s', $response['fecha']) . '<br>Las salas se eliminan tras 10 horas de ser creadas</p>';
                     if ($response['ip'] == $_SERVER["REMOTE_ADDR"]) {
                         echo '<p>Eres el creador de esta sala</p>';
-                        echo '<button type="button" class="btn btn-outline-danger">Borrar sala</button>';
+                        echo '<button type="button" class="btn btn-outline-danger btn-sm mb-5">Borrar sala</button>';
                     }
                 } else {
                     //DB Failure
@@ -120,13 +118,15 @@ require_once('api/roomhandler.php');
                 }
             } catch (Exception $e) {
                 http_response_code(500);
+                echo '<h1 class="cover-heading">ProperLab Media</h1>
+                <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>';
                 echo '<p class="lead">' . $e->getMessage() . '</p> <button class="btn btn-secondary" type="button" onclick="location.href=\'/\'">Crea tu propia sala</button></p>';
             }
             ?>
             <p class="lead">
                 <?php
                 if (isset($response['id'])) {
-                    echo '<video src="' . $response['video'] . '" controls playsinline="true" preload="true" poster="/assets/img/icon/properlab-loader.gif" width="70%" height="65%">Tu navegador no soporta la etiqueta video.</video>';
+                    echo '<video src="' . $response['video'] . '" controls playsinline="true" preload="true" poster="/assets/img/icon/properlab-loader.gif" width="100%" height="100%">Tu navegador no soporta la etiqueta video.</video>';
                 }
                 ?>
             </p>

@@ -92,7 +92,7 @@ class RoomHandler
     /**
      * Gets all the info of a room from a room key
      *
-     * @param  string $salaId String with the video url
+     * @param  string $salaId String with the room id
      *
      * @return array
      */
@@ -104,6 +104,28 @@ class RoomHandler
             if (!$room) throw new Exception('La sala no existe o ha sido eliminada');
 
             return $room;
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Delete a room from DB
+     *
+     * @param  string $salaId String with the room id
+     *
+     * @return array
+     */
+    public function deleteRoom($salaId)
+    {
+        try {
+            $room = $this->getRoom($salaId);
+            if ($room['ip'] == $_SERVER["REMOTE_ADDR"]) {
+                $dh = new DataHandler;
+                $dh->deleteRoom($salaId);
+                return true;
+            }
+            return false;
         } catch (\PDOException $e) {
             return $e->getMessage();
         }

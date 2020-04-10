@@ -53,7 +53,7 @@ class DataHandler
         try {
             $ip_address = $_SERVER["REMOTE_ADDR"];
 
-            $datetimeNow = date("Y-m-d H:i:s");
+            $datetimeNow = time();
 
             $dbconn = new DbConn;
 
@@ -93,6 +93,31 @@ class DataHandler
         } catch (\PDOException $e) {
             $resp = $e->getMessage();
         }
+
+        return $resp;
+    }
+
+    /**
+     * Deletes a room from a key
+     *
+     * @param  string $salaId String with the room id
+     *
+     */
+    public function deleteRoom($salaId)
+    {
+        try {
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("DELETE * FROM " . $dbconn->tbl_rooms . " WHERE sala = :salaid");
+            $stmt->bindParam(':salaid', $salaId);
+            $stmt->execute();
+            $err = '';
+        } catch (\PDOException $e) {
+            $err = "Error: " . $e->getMessage();
+        }
+
+        //Determines returned value ('true' or error code)
+        $resp = ($err == '') ? 'true' : $err;
 
         return $resp;
     }
