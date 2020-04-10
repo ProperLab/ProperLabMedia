@@ -40,7 +40,6 @@ class DataHandler
             $stmt->bindParam(':fecha', $datetimeNow);
             $stmt->execute();
             $err = '';
-
         } catch (\PDOException $e) {
             $err = "Error: " . $e->getMessage();
         }
@@ -56,26 +55,20 @@ class DataHandler
      *
      * @param  string $salaId String with the room id
      *
-     * @return string
+     * @return array All data from DB
      */
     public function getRoom($salaId)
     {
-        // TODO: getRoom logic...
         try {
-            $ip_address = $_SERVER["REMOTE_ADDR"];
-
             $dbconn = new DbConn;
 
-            $stmt = $dbconn->conn->prepare("SELECT * FROM " . $dbconn->tbl_rooms);
+            $stmt = $dbconn->conn->prepare("SELECT * FROM " . $dbconn->tbl_rooms . " WHERE sala = :salaid");
+            $stmt->bindParam(':salaid', $salaId);
             $stmt->execute();
-            $err = '';
-
+            $resp = $stmt->fetch(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            $err = "Error: " . $e->getMessage();
+            $resp = $e->getMessage();
         }
-
-        //Determines returned value ('true' or error code)
-        $resp = ($err == '') ? 'true' : $err;
 
         return $resp;
     }
@@ -96,7 +89,6 @@ class DataHandler
             $stmt->bindParam(':key', $key);
             $stmt->execute();
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-
         } catch (\PDOException $e) {
             $result = true;
         }

@@ -37,7 +37,7 @@ class RoomHandler
                 $claveSala .= $alphaClave[mt_rand(0, strlen($alphaClave) - 1)];
             }
             $dh = new DataHandler;
-            if($dh->keyExist($claveSala)) $existe = true;
+            if ($dh->keyExist($claveSala)) $existe = true;
         } while ($existe);
         return $claveSala;
     }
@@ -60,7 +60,6 @@ class RoomHandler
             }
 
             return $key;
-
         } catch (\PDOException $e) {
             return $e->getMessage();
         }

@@ -32,9 +32,11 @@
         <main role="main" class="inner cover">
             <h1 class="cover-heading">ProperLab Media</h1>
             <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>
+            <p class="lead">Estás en la sala: <?php echo $_GET['p'] ?>.</p>
             <p class="lead">
                 <?php
-                echo '<video src="https://propercloud.sytes.net/assets/video/code-lyoko.mp4" controls autoplay="autoplay" playsinline="true" preload="true" poster="poster.jpg" width="auto" height="auto">Tu navegador no soporta la etiqueta video.</video>';
+                // TODO: Ajuste del vídeo en moviles
+                echo '<video src="https://propercloud.sytes.net/assets/video/code-lyoko.mp4" controls playsinline="true" preload="true" poster="poster.jpg" width="auto" height="auto">Tu navegador no soporta la etiqueta video.</video>';
                 ?>
             </p>
         </main>
