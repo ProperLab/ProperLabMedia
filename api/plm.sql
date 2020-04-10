@@ -23,7 +23,7 @@ CREATE TABLE `salas` (
   `video` text NOT NULL,
   `sala` varchar(30) NOT NULL,
   `ip` varchar(30) NOT NULL,
-  `fecha` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `fecha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -45,14 +45,13 @@ ALTER TABLE `salas`
 -- AUTO_INCREMENT de la tabla `salas`
 --
 ALTER TABLE `salas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
-SET GLOBAL event_scheduler=1;
 DELIMITER $$
 --
 -- Eventos
 --
-CREATE DEFINER=`root`@`localhost` EVENT `autoDelete` ON SCHEDULE EVERY 5 MINUTE STARTS '2020-04-10 20:31:38' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `salas` where fecha+36000 < CURRENT_TIMESTAMP()+1$$
+CREATE EVENT `autoDelete` ON SCHEDULE EVERY 5 MINUTE STARTS '2020-04-10 20:31:38' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `salas` where fecha+32000 < UNIX_TIMESTAMP(CURRENT_TIMESTAMP())$$
 
 DELIMITER ;
 COMMIT;
