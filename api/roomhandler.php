@@ -52,8 +52,8 @@ class RoomHandler
      */
     private function generateRoomKey()
     {
-        $existe = false;
         do {
+            $existe = false;
             $tamañoClave = 8;
             $alphaClave = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             $claveSala = "";

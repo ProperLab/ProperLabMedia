@@ -31,6 +31,9 @@
 
 require_once('roomhandler.php');
 try {
+    if (!isset($_POST['videoUrl'])) {
+        throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+    }
     // Validar todo lo enviado
     $videoUrl = htmlspecialchars($_POST['videoUrl']);
     sleep(3);

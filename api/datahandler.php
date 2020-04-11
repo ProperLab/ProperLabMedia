@@ -108,7 +108,7 @@ class DataHandler
         try {
             $dbconn = new DbConn;
 
-            $stmt = $dbconn->conn->prepare("DELETE * FROM " . $dbconn->tbl_rooms . " WHERE sala = :salaid");
+            $stmt = $dbconn->conn->prepare("DELETE FROM " . $dbconn->tbl_rooms . " WHERE sala = :salaid");
             $stmt->bindParam(':salaid', $salaId);
             $stmt->execute();
             $err = '';
