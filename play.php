@@ -182,8 +182,6 @@ require_once('api/roomhandler.php');
     <script src="/assets/vendor/js/jquery-3.4.1.min.js"></script>
     <script src="/assets/vendor/js/popper.min.js"></script>
     <script src="/assets/vendor/bootsrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.bundle.js"></script>
-    <script src="/assets/js/gulpfile.js"></script>
 
     <script>
         function openNav() {
