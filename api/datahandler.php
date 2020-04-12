@@ -105,21 +105,7 @@ class DataHandler
      */
     public function deleteRoom($salaId)
     {
-        try {
-            $dbconn = new DbConn;
-
-            $stmt = $dbconn->conn->prepare("DELETE FROM " . $dbconn->tbl_rooms . " WHERE sala = :salaid");
-            $stmt->bindParam(':salaid', $salaId);
-            $stmt->execute();
-            $err = '';
-        } catch (\PDOException $e) {
-            $err = "Error: " . $e->getMessage();
-        }
-
-        //Determines returned value ('true' or error code)
-        $resp = ($err == '') ? 'true' : $err;
-
-        return $resp;
+        // TODO: Eliminar una sala a partir de su ID (ProperCloud)
     }
 
     /**
