@@ -64,6 +64,32 @@ try {
         } else {
             throw new Exception('Error al crear usuario: ' + $response);
         }
+    } else if ($action == 'fetchUsers') {
+        if (!isset($_POST['salaId'])) {
+            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+        }
+        $salaId = htmlspecialchars($_POST['salaId']);
+        $dh = new ProperLabMedia\RoomHandler;
+        $response = $dh->fetchUsers($salaId);
+        if ($response[0]) {
+            echo $response;
+            return;
+        } else {
+            throw new Exception('Error al cargar los usuarios: ' + $response);
+        }
+    } else if ($action == 'update') {
+        if (!isset($_POST['userId']) || !isset($_POST['status'])) {
+            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+        }
+        $userId = htmlspecialchars($_POST['userId']);
+        $status = htmlspecialchars($_POST['status']);
+        $dh = new ProperLabMedia\RoomHandler;
+        $response = $dh->updateUser($userId, $status);
+        if ($response == true) {
+            return;
+        } else {
+            throw new Exception('Error al actualizar la información: ' + $response);
+        }
     } else {
         throw new Exception('La acción no es valida.');
     }

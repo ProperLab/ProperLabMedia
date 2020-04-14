@@ -155,4 +155,48 @@ class RoomHandler
             return $e->getMessage();
         }
     }
+
+    /**
+     * Updates a user status
+     *
+     * @param  string $id ID of the room
+     * @param  string $status ID of the room
+     *
+     * @return array
+     */
+    public function updateUser($id, $status)
+    {
+        try {
+            $dh = new DataHandler;
+            if (!$dh->updateUser($id, $status)) throw new Exception('Error al actualizar la información');
+
+            return true;
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Fetchs users inside a room
+     *
+     * @param  string $room ID of the room
+     *
+     * @return array
+     */
+    public function fetchUsers($room)
+    {
+        try {
+            $dh = new DataHandler;
+            $room = $dh->getRoom($room);
+            if (!$room) throw new Exception('La sala no existe o ha sido eliminada');
+
+            $users = $dh->fetchUsers($room['sala']);
+
+            if (!$users) throw new Exception('Error al cargar los usuarios');
+
+            return $users;
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }

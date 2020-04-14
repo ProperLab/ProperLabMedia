@@ -210,4 +210,31 @@ class DataHandler
 
         return $resp;
     }
+
+    /**
+     * Fetch users inside a room
+     *
+     * @param  string $room Id of the room
+     *
+     * @return array
+     */
+    public function fetchUsers(string $room)
+    {
+        try {
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("SELECT nombre, estado FROM " . $dbconn->tbl_users . " WHERE sala = :sala");
+            $stmt->bindParam(':sala', $room);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = false;
+        }
+
+        return $resp;
+    }
 }
