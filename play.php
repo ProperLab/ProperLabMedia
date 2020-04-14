@@ -185,12 +185,10 @@ require_once('api/roomhandler.php');
 
     <script>
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("mySidenav").style.left = "0";
         }
 
         function closeNav() {
-            document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("mySidenav").style.left = "-250px";
         }
     </script>

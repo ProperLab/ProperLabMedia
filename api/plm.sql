@@ -27,6 +27,19 @@ CREATE TABLE `salas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `sala` varchar(30) NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `estado` varchar(100) NOT NULL,
+  `ip` varchar(30) NOT NULL,
+  `fecha` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -38,6 +51,13 @@ ALTER TABLE `salas`
   ADD UNIQUE KEY `sala` (`sala`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sala` (`sala`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -45,13 +65,31 @@ ALTER TABLE `salas`
 -- AUTO_INCREMENT de la tabla `salas`
 --
 ALTER TABLE `salas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `salarel` FOREIGN KEY (`sala`) REFERENCES `salas` (`sala`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 DELIMITER $$
 --
 -- Eventos
 --
-CREATE EVENT `autoDelete` ON SCHEDULE EVERY 5 MINUTE STARTS '2020-04-10 20:31:38' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `salas` where fecha+32000 < UNIX_TIMESTAMP(CURRENT_TIMESTAMP())$$
+CREATE EVENT `Auto User Disconnect` ON SCHEDULE EVERY 1 MINUTE STARTS '2020-04-14 15:35:56' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `usuarios` where fecha+300 < UNIX_TIMESTAMP(CURRENT_TIMESTAMP())$$
+
+CREATE EVENT `Auto Delete` ON SCHEDULE EVERY 5 MINUTE STARTS '2020-04-14 15:35:32' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `salas` where fecha+32000 < UNIX_TIMESTAMP(CURRENT_TIMESTAMP())$$
 
 DELIMITER ;
 COMMIT;
