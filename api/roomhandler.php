@@ -118,6 +118,16 @@ class RoomHandler
      */
     public function deleteRoom($salaId)
     {
-        // TODO: Pedir a la base de datos que borre la sala aunque antes hay que comprobar que la IP de la base de datos es la misma que la de la petición (ProperCloud)
+        try {
+            $dh = new DataHandler;
+            $room = $this->getRoom($salaId);
+            if ($room['ip'] == $_SERVER["REMOTE_ADDR"]) {
+                $room = $dh->deleteRoom($salaId);
+                return true;
+            }
+            return $room;
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
     }
 }
