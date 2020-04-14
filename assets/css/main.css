@@ -196,6 +196,9 @@ body {
   display: block;
   transition: 0.3s;
 }
+.sidenav p {
+  color: #111;
+}
 
 .sidenav a:hover {
   color: #111;

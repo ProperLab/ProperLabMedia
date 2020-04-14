@@ -54,10 +54,10 @@ require_once('api/roomhandler.php');
 
     <div id="mySidenav" class="sidenav">
         <a style="cursor: pointer;" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Amigo 1</a>
-        <a href="#">Amigo 2</a>
-        <a href="#">Amigo 3</a>
-        <a href="#">Amigo 4</a>
+        <a href="#">Amigo 1</a><p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 2</a><p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 3</a><p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 4</a><p>XX:XX / PAUSE</p>
     </div>
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
