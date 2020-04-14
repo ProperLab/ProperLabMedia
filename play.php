@@ -175,7 +175,7 @@ require_once('api/roomhandler.php');
                         },
                         function(data, status){})
                         .done (function (data) {
-                            location.href=\'/\';
+                            location.href=\'#\';
                         })
                         .fail (function (data) {
                             alert(\'Ha ocurrido un error al crear el usuario\');
