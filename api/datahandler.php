@@ -130,4 +130,70 @@ class DataHandler
 
         return $result;
     }
+
+    /**
+     * Creates a new user for a room
+     *
+     * @param  string $name Name of the user
+     * @param  string $room ID of the room
+     *
+     * @return string
+     */
+    public function newUser($name, $room)
+    {
+        try {
+            $ip_address = $_SERVER["REMOTE_ADDR"];
+
+            $datetimeNow = time();
+
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("INSERT INTO " . $dbconn->tbl_users . " (sala, nombre, estado, ip, fecha) values(:sala, :nombre, :estado, :ip, :fecha)");
+            $stmt->bindParam(':sala', $room);
+            $stmt->bindParam(':nombre', $name);
+            $stmt->bindParam(':estado', 'Cargando...');
+            $stmt->bindParam(':ip', $ip_address);
+            $stmt->bindParam(':fecha', $datetimeNow);
+            $stmt->execute();
+            $err = '';
+        } catch (\PDOException $e) {
+            $err = "Error: " . $e->getMessage();
+        }
+
+        //Determines returned value ('true' or error code)
+        $resp = ($err == '') ? 'true' : $err;
+
+        return $resp;
+    }
+
+    /**
+     * Updates user status
+     *
+     * @param  string $id ID of the user
+     * @param  string $status New status of the user
+     *
+     * @return string
+     */
+    public function updateUser($id, $status)
+    {
+        try {
+            $datetimeNow = time();
+
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("UPDATE " . $dbconn->tbl_users . " SET estado = :estado, fecha = :fecha WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':estado', $status);
+            $stmt->bindParam(':fecha', $datetimeNow);
+            $stmt->execute();
+            $err = '';
+        } catch (\PDOException $e) {
+            $err = "Error: " . $e->getMessage();
+        }
+
+        //Determines returned value ('true' or error code)
+        $resp = ($err == '') ? 'true' : $err;
+
+        return $resp;
+    }
 }
