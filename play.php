@@ -156,6 +156,12 @@ require_once('api/roomhandler.php');
             </p>
         </main>
 
+        <div id="data">
+            <input type="hidden" id="salaId" value="<?php echo $response['sala'] ?>">
+            <input type="hidden" id="videoSrc" value="<?php echo $response['video'] ?>">
+            <input type="hidden" id="nameId" value="">
+        </div>
+
         <!-- Modal -->
         <div class="modal fade" id="startSession" tabindex="-1" role="dialog" aria-labelledby="startSessionTitle" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -179,7 +185,7 @@ require_once('api/roomhandler.php');
                         },
                         function(data, status){})
                         .done (function (data) {
-                            document.getElementById(\'name\').value = data;
+                            document.getElementById(\'nameId\').value = data;
                             $(\'#startSession\').modal(\'hide\');
                             fetchFriends();
                         })
