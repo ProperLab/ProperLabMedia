@@ -50,7 +50,7 @@ require_once('api/roomhandler.php');
 
 </head>
 
-<body class="text-center" onload="$('#startSesion').modal('hide')">
+<body class="text-center" onload="$('#startSesion').modal('show')">
 
     <div id="mySidenav" class="sidenav">
         <a style="cursor: pointer;" class="closebtn" onclick="closeNav()">&times;</a>
@@ -166,7 +166,21 @@ require_once('api/roomhandler.php');
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">¡Empezar!</button>
+                    <?php
+                    echo '<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="$.post(\'/api/playAPI.php\',
+                        {
+                            action: \'createUser\',
+                            name: document.getElementById(\'name\').value,
+                            salaId: \'' . $response['sala'] . '\'
+                        },
+                        function(data, status){})
+                        .done (function (data) {
+                            location.href=\'#\';
+                        })
+                        .fail (function (data) {
+                            alert(\'Ha ocurrido un error al crear el usuario\');
+                        });">¡Empezar!</button>'
+                    ?>
                     </div>
                 </div>
             </div>
