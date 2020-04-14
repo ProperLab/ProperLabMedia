@@ -48,6 +48,19 @@ try {
         } else {
             throw new Exception('Error al eliminar la sala');
         }
+    } else if ($action == 'createUser') {
+        if (!isset($_POST['salaId']) || !isset($_POST['name'])) {
+            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+        }
+        $salaId = htmlspecialchars($_POST['salaId']);
+        $name = htmlspecialchars($_POST['name']);
+        $dh = new ProperLabMedia\RoomHandler;
+        $response = $dh->createUser($name, $salaId);
+        if ($response['id']) {
+            return $response['id'];
+        } else {
+            throw new Exception('Error al crear usuario: ' + $response);
+        }
     } else {
         throw new Exception('La acción no es valida.');
     }

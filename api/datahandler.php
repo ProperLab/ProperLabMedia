@@ -161,12 +161,12 @@ class DataHandler
 
             $dbconn = new DbConn;
 
-            $test ='Cargando';
+            $status = 'Cargando...';
 
             $stmt = $dbconn->conn->prepare("INSERT INTO " . $dbconn->tbl_users . " (sala, nombre, estado, ip, fecha) VALUES(:sala, :nombre, :estado, :ip, :fecha)");
             $stmt->bindParam(':sala', $room);
             $stmt->bindParam(':nombre', $name);
-            $stmt->bindParam(':estado', $test);
+            $stmt->bindParam(':estado', $status);
             $stmt->bindParam(':ip', $ip_address);
             $stmt->bindParam(':fecha', $datetimeNow);
             $stmt->execute();
