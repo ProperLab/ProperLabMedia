@@ -181,8 +181,9 @@ require_once('api/roomhandler.php');
                         .done (function (data) {
                             document.getElementById(\'name\').value = data;
                             $(\'#startSession\').modal(\'hide\');
+                            fetchFriends();
                         })
-                        .fail (function (data, status) {
+                        .fail (function (data) {
                             alert(\'Ha ocurrido un error al crear el usuario. \'+data.responseText);
                             $(\'#startSession\').modal(\'show\');
                         });">¡Empezar!</button>'
@@ -202,6 +203,7 @@ require_once('api/roomhandler.php');
     <script src="/assets/vendor/js/jquery-3.4.1.min.js"></script>
     <script src="/assets/vendor/js/popper.min.js"></script>
     <script src="/assets/vendor/bootsrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/hellofriend.js"></script>
 
     <script>
         function openNav() {
