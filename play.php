@@ -116,7 +116,7 @@ require_once('api/roomhandler.php');
                     </script>
                     </div>';
                     echo '<p id="fecha"></p>';
-                    echo ' <script>document.getElementById("fecha").innerHTML = "Fecha de creación:" + new Date(' .  $response['fecha'] . ') + "<br>Las salas se eliminan tras 10 horas de ser creadas";</script>';
+                    echo ' <script>document.getElementById("fecha").innerHTML = "Fecha de creación:" + new Date(' .  $response['fecha']*1000 . ') + "<br>Las salas se eliminan tras 10 horas de ser creadas";</script>';
                     if ($response['ip'] == $_SERVER["REMOTE_ADDR"]) {
                         echo '<p>Eres el creador de esta sala</p>';
                         echo '<button type="button" class="btn btn-outline-danger btn-sm mb-5" onclick="$.post(\'/api/playAPI.php\',

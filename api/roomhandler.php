@@ -117,13 +117,13 @@ class RoomHandler
     public function deleteRoom($salaId)
     {
         try {
-            $dh = new DataHandler;
             $room = $this->getRoom($salaId);
             if ($room['ip'] == $_SERVER["REMOTE_ADDR"]) {
-                $room = $dh->deleteRoom($salaId);
+                $dh = new DataHandler;
+                $dh->deleteRoom($salaId);
                 return true;
             }
-            return $room;
+            return false;
         } catch (\PDOException $e) {
             return $e->getMessage();
         }

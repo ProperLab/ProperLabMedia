@@ -46,9 +46,9 @@ class DataHandler
      * @param  string $videoUrl String with the video url
      * @param  string $salaId String with the room id
      *
-     * @return string
+     * @return bool
      */
-    public function saveRoom($videoUrl, $salaId)
+    public function saveRoom(string $videoUrl, string $salaId): bool
     {
         try {
             $ip_address = $_SERVER["REMOTE_ADDR"];
@@ -63,13 +63,12 @@ class DataHandler
             $stmt->bindParam(':ip', $ip_address);
             $stmt->bindParam(':fecha', $datetimeNow);
             $stmt->execute();
-            $err = '';
-        } catch (\PDOException $e) {
-            $err = "Error: " . $e->getMessage();
-        }
 
-        //Determines returned value ('true' or error code)
-        $resp = ($err == '') ? 'true' : $err;
+            $resp = true;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = false;
+        }
 
         return $resp;
     }
@@ -81,7 +80,7 @@ class DataHandler
      *
      * @return array All data from DB
      */
-    public function getRoom($salaId)
+    public function getRoom(string $salaId): array
     {
         try {
             $dbconn = new DbConn;
@@ -91,7 +90,8 @@ class DataHandler
             $stmt->execute();
             $resp = $stmt->fetch(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            $resp = $e->getMessage();
+            error_log($e->getMessage());
+            $resp[] = false;
         }
 
         return $resp;
@@ -103,7 +103,7 @@ class DataHandler
      * @param  string $salaId String with the room id
      *
      */
-    public function deleteRoom($salaId)
+    public function deleteRoom(string $salaId): bool
     {
         try {
             $dbconn = new DbConn;
@@ -111,8 +111,11 @@ class DataHandler
             $stmt = $dbconn->conn->prepare("DELETE FROM " . $dbconn->tbl_rooms . " WHERE sala = :salaid");
             $stmt->bindParam(':salaid', $salaId);
             $stmt->execute();
+
+            $resp = true;
         } catch (\PDOException $e) {
-            $resp = $e->getMessage();
+            error_log($e->getMessage());
+            $resp = false;
         }
 
         return $resp;
@@ -125,7 +128,7 @@ class DataHandler
      *
      * @return bool
      */
-    public function keyExist($key): bool
+    public function keyExist(string $key): bool
     {
         try {
             $dbconn = new DbConn;
@@ -147,9 +150,9 @@ class DataHandler
      * @param  string $name Name of the user
      * @param  string $room ID of the room
      *
-     * @return string
+     * @return bool
      */
-    public function newUser($name, $room)
+    public function newUser(string $name, string $room): bool
     {
         try {
             $ip_address = $_SERVER["REMOTE_ADDR"];
@@ -165,13 +168,12 @@ class DataHandler
             $stmt->bindParam(':ip', $ip_address);
             $stmt->bindParam(':fecha', $datetimeNow);
             $stmt->execute();
-            $err = '';
-        } catch (\PDOException $e) {
-            $err = "Error: " . $e->getMessage();
-        }
 
-        //Determines returned value ('true' or error code)
-        $resp = ($err == '') ? 'true' : $err;
+            $resp = true;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = false;
+        }
 
         return $resp;
     }
@@ -179,12 +181,12 @@ class DataHandler
     /**
      * Updates user status
      *
-     * @param  string $id ID of the user
+     * @param  int $id ID of the user
      * @param  string $status New status of the user
      *
-     * @return string
+     * @return bool
      */
-    public function updateUser($id, $status)
+    public function updateUser(int $id, string $status): bool
     {
         try {
             $datetimeNow = time();
@@ -196,13 +198,12 @@ class DataHandler
             $stmt->bindParam(':estado', $status);
             $stmt->bindParam(':fecha', $datetimeNow);
             $stmt->execute();
-            $err = '';
-        } catch (\PDOException $e) {
-            $err = "Error: " . $e->getMessage();
-        }
 
-        //Determines returned value ('true' or error code)
-        $resp = ($err == '') ? 'true' : $err;
+            $resp = true;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = false;
+        }
 
         return $resp;
     }
