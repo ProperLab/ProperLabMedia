@@ -72,7 +72,7 @@ try {
         $dh = new ProperLabMedia\RoomHandler;
         $response = $dh->fetchUsers($salaId);
         if ($response[0]) {
-            echo $response;
+            echo json_encode($response);
             return;
         } else {
             throw new Exception('Error al cargar los usuarios: ' + $response);
