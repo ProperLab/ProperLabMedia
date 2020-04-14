@@ -83,6 +83,7 @@ class DbConn
         // Pulls tables from dbconf.php file
         require 'dbconf.php';
         $this->tbl_rooms = $tbl_rooms;
+        $this->tbl_users = $tbl_users;
 
         // Connect to server and select database
         try {

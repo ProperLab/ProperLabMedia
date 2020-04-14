@@ -80,7 +80,7 @@ class DataHandler
      *
      * @return array All data from DB
      */
-    public function getRoom(string $salaId): array
+    public function getRoom(string $salaId)
     {
         try {
             $dbconn = new DbConn;
@@ -91,7 +91,7 @@ class DataHandler
             $resp = $stmt->fetch(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log($e->getMessage());
-            $resp[] = false;
+            $resp = false;
         }
 
         return $resp;
@@ -150,9 +150,9 @@ class DataHandler
      * @param  string $name Name of the user
      * @param  string $room ID of the room
      *
-     * @return bool
+     * @return int
      */
-    public function newUser(string $name, string $room): bool
+    public function newUser(string $name, string $room): int
     {
         try {
             $ip_address = $_SERVER["REMOTE_ADDR"];
@@ -161,18 +161,21 @@ class DataHandler
 
             $dbconn = new DbConn;
 
-            $stmt = $dbconn->conn->prepare("INSERT INTO " . $dbconn->tbl_users . " (sala, nombre, estado, ip, fecha) values(:sala, :nombre, :estado, :ip, :fecha)");
+            $test ='Cargando';
+
+            $stmt = $dbconn->conn->prepare("INSERT INTO " . $dbconn->tbl_users . " (sala, nombre, estado, ip, fecha) VALUES(:sala, :nombre, :estado, :ip, :fecha)");
             $stmt->bindParam(':sala', $room);
             $stmt->bindParam(':nombre', $name);
-            $stmt->bindParam(':estado', 'Cargando...');
+            $stmt->bindParam(':estado', $test);
             $stmt->bindParam(':ip', $ip_address);
             $stmt->bindParam(':fecha', $datetimeNow);
             $stmt->execute();
+            $id = $dbconn->conn->lastInsertId();
 
-            $resp = true;
+            $resp = $id;
         } catch (\PDOException $e) {
             error_log($e->getMessage());
-            $resp = false;
+            $resp = 0;
         }
 
         return $resp;

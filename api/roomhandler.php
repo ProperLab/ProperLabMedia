@@ -128,4 +128,31 @@ class RoomHandler
             return $e->getMessage();
         }
     }
+
+    /**
+     * Creates a new user
+     *
+     * @param  string $name Name of the user
+     * @param  string $room ID of the room
+     *
+     * @return string
+     */
+    public function createUser($name, $room)
+    {
+        try {
+            if (strlen($name) > 25) throw new Exception('Nombre de usuario demasiado largo');
+
+            $dh = new DataHandler;
+            $room = $dh->getRoom($room);
+            if (!$room) throw new Exception('La sala no existe o ha sido eliminada');
+
+            $userId = $dh->newUser($name, $room['sala']);
+
+            if (!$userId) throw new Exception('Error al crear usuario');
+
+            return ['id' => $userId];
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
