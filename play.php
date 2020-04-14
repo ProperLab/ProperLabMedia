@@ -54,10 +54,14 @@ require_once('api/roomhandler.php');
 
     <div id="mySidenav" class="sidenav">
         <a style="cursor: pointer;" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Amigo 1</a><p>XX:XX / PAUSE</p>
-        <a href="#">Amigo 2</a><p>XX:XX / PAUSE</p>
-        <a href="#">Amigo 3</a><p>XX:XX / PAUSE</p>
-        <a href="#">Amigo 4</a><p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 1</a>
+        <p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 2</a>
+        <p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 3</a>
+        <p>XX:XX / PAUSE</p>
+        <a href="#">Amigo 4</a>
+        <p>XX:XX / PAUSE</p>
     </div>
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
@@ -116,7 +120,7 @@ require_once('api/roomhandler.php');
                     </script>
                     </div>';
                     echo '<p id="fecha"></p>';
-                    echo ' <script>document.getElementById("fecha").innerHTML = "Fecha de creación:" + new Date(' .  $response['fecha']*1000 . ') + "<br>Las salas se eliminan tras 10 horas de ser creadas";</script>';
+                    echo ' <script>document.getElementById("fecha").innerHTML = "Fecha de creación:" + new Date(' .  $response['fecha'] * 1000 . ') + "<br>Las salas se eliminan tras 10 horas de ser creadas";</script>';
                     if ($response['ip'] == $_SERVER["REMOTE_ADDR"]) {
                         echo '<p>Eres el creador de esta sala</p>';
                         echo '<button type="button" class="btn btn-outline-danger btn-sm mb-5" onclick="$.post(\'/api/playAPI.php\',
@@ -166,8 +170,8 @@ require_once('api/roomhandler.php');
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <?php
-                    echo '<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="$.post(\'/api/playAPI.php\',
+                        <?php
+                        echo '<button type="button" class="btn btn-primary" onclick="$.post(\'/api/playAPI.php\',
                         {
                             action: \'createUser\',
                             name: document.getElementById(\'name\').value,
@@ -175,12 +179,14 @@ require_once('api/roomhandler.php');
                         },
                         function(data, status){})
                         .done (function (data) {
-                            location.href=\'#\';
+                            document.getElementById(\'name\').value = data;
+                            $(\'#startSession\').modal(\'hide\');
                         })
-                        .fail (function (data) {
-                            alert(\'Ha ocurrido un error al crear el usuario\');
+                        .fail (function (data, status) {
+                            alert(\'Ha ocurrido un error al crear el usuario. \'+data.responseText);
+                            $(\'#startSession\').modal(\'show\');
                         });">¡Empezar!</button>'
-                    ?>
+                        ?>
                     </div>
                 </div>
             </div>

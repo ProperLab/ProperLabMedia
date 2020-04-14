@@ -140,7 +140,7 @@ class RoomHandler
     public function createUser($name, $room)
     {
         try {
-            if (strlen($name) > 25) throw new Exception('Nombre de usuario demasiado largo');
+            if (strlen($name) > 25) throw new Exception('El nombre es demasiado largo');
 
             $dh = new DataHandler;
             $room = $dh->getRoom($room);

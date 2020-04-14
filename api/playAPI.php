@@ -44,7 +44,8 @@ try {
         $dh = new ProperLabMedia\RoomHandler;
         $response = $dh->deleteRoom($videoUrl);
         if ($response) {
-            return $response;
+            echo $response;
+            return;
         } else {
             throw new Exception('Error al eliminar la sala');
         }
@@ -52,12 +53,14 @@ try {
         if (!isset($_POST['salaId']) || !isset($_POST['name'])) {
             throw new Exception('Servidor: No has introducido todos los campos obligatorios');
         }
+        if (strlen($_POST['name']) < 4) throw new Exception('El nombre es demasiado corto');
         $salaId = htmlspecialchars($_POST['salaId']);
         $name = htmlspecialchars($_POST['name']);
         $dh = new ProperLabMedia\RoomHandler;
         $response = $dh->createUser($name, $salaId);
         if ($response['id']) {
-            return $response['id'];
+            echo $response['id'];
+            return;
         } else {
             throw new Exception('Error al crear usuario: ' + $response);
         }
