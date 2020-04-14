@@ -68,6 +68,11 @@ class DbConn
     * @var string
     */
     public $tbl_rooms;
+    /**
+    * Table where user data is stored
+    * @var string
+    */
+    public $tbl_users;
 
     /**
      * Class constructor

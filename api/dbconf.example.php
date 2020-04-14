@@ -36,3 +36,4 @@ $password = 'ProperLab'; // Mysql password
 $db_name = 'plm'; // Database name
 
 $tbl_rooms = 'salas';
+$tbl_users = 'usuarios';

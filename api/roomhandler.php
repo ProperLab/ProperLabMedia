@@ -79,9 +79,7 @@ class RoomHandler
         try {
             $key = $this->generateRoomKey();
             $dh = new DataHandler;
-            if (!$dh->saveRoom($videoUrl, $key)) {
-                throw new Exception('Error al guardar la sala');
-            }
+            if (!$dh->saveRoom($videoUrl, $key)) throw new Exception('Error al guardar la sala');
 
             return ['key' => $key];
         } catch (\PDOException $e) {
