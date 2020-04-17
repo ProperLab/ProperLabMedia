@@ -212,6 +212,30 @@ class DataHandler
     }
 
     /**
+     * Gets user info from a ID
+     *
+     * @param  string $userId String with the user id
+     *
+     * @return array All data from DB
+     */
+    public function getUser(string $userId)
+    {
+        try {
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("SELECT * FROM " . $dbconn->tbl_users . " WHERE id = :userid");
+            $stmt->bindParam(':userid', $userId);
+            $stmt->execute();
+            $resp = $stmt->fetch(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = false;
+        }
+
+        return $resp;
+    }
+
+    /**
      * Fetch users inside a room
      *
      * @param  string $room Id of the room

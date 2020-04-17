@@ -168,9 +168,14 @@ class RoomHandler
     {
         try {
             $dh = new DataHandler;
-            if (!$dh->updateUser($id, $status)) throw new Exception('Error al actualizar la información');
+            $user = $dh->getUser($id);
+            if (!$user) throw new Exception('No se ha podido encontrar tu usuario, recarga la página');
 
-            return true;
+            if ($user['ip'] == $_SERVER["REMOTE_ADDR"]) {
+                if (!$dh->updateUser($id, $status)) throw new Exception('Error al actualizar la información');
+                return true;
+            }
+            throw new Exception('No se ha podido autenticar la petición');
         } catch (\PDOException $e) {
             return $e->getMessage();
         }
@@ -192,7 +197,7 @@ class RoomHandler
 
             $users = $dh->fetchUsers($room['sala']);
 
-            if (!$users) throw new Exception('Error al cargar los usuarios');
+            if (!$users) return [['nombre' => 'Solo solín solito', 'estado' => 'No hay nadie en la sala']];
 
             return $users;
         } catch (\PDOException $e) {
