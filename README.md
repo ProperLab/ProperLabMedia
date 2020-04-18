@@ -19,7 +19,7 @@ Puedes ver la documentación desde la wiki del repositorio.
 - [Wiki](https://github.com/ProperLab/ProperLabMedia/wiki)
 
 ## Descarga
-Puedes descargar una copia del proyecto para hostear tu mismo o acceder a la [versión pública]()
+Puedes descargar una copia del proyecto para hostear tu mismo o acceder a la [versión pública](http://properlab.sytes.net/media/)
 - [Link de Descarga](https://github.com/ProperLab/ProperLabMedia/releases)
 - [Guía de Instalación](https://github.com/ProperLab/ProperLabMedia/wiki/Gu%C3%ADa-de-Instalaci%C3%B3n)
 
