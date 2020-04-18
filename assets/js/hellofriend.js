@@ -48,7 +48,7 @@ function fetchFriends() {
         {
           action: "update",
           userId: document.getElementById("nameId").value,
-          status: media.readyState >= 3 ? (media.paused ? 'PAUSADO' :  horas+':'+minutos+':'+segundos) : 'Cargando...' ,
+          status: media.readyState >= 3 ? (media.paused ? 'PAUSADO EN '+horas+':'+minutos+':'+segundos :  horas+':'+minutos+':'+segundos) : 'Cargando...' ,
         },
         function (data, status) {}
       )
