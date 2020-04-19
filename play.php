@@ -44,9 +44,9 @@ require_once('api/roomhandler.php');
 
     <title>ProperLab Media</title>
 
-    <link rel="icon" href="/assets/img/icon/favicon.ico">
-    <link href="/assets/vendor/bootsrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/main.css" rel="stylesheet">
+    <link rel="icon" href="assets/img/icon/favicon.ico">
+    <link href="assets/vendor/bootsrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
 
 </head>
 
@@ -64,7 +64,7 @@ require_once('api/roomhandler.php');
             <div class="inner">
                 <h3 class="masthead-brand">ProperLab Media</h3>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="/">Inicio</a>
+                    <a class="nav-link active" href="./">Inicio</a>
                     <a class="nav-link" href="mailto:contact.properlab@gmail.com">Contactanos</a>
                 </nav>
             </div>
@@ -119,7 +119,7 @@ require_once('api/roomhandler.php');
                     echo '<script>document.getElementById("fecha").innerHTML = "Fecha de creación:" + new Date(' .  $response['fecha'] * 1000 . ') + "<br>Las salas se eliminan tras 10 horas de ser creadas";</script>';
                     if ($response['ip'] == $_SERVER["REMOTE_ADDR"]) {
                         echo '<p>Eres el creador de esta sala</p>';
-                        echo '<button type="button" class="btn btn-outline-danger btn-sm mb-5" onclick="$.post(\'/api/playAPI.php\',
+                        echo '<button type="button" class="btn btn-outline-danger btn-sm mb-5" onclick="$.post(\'api/playAPI.php\',
                         {
                             action: \'delete\',
                             videoUrl: \'' . $response['sala'] . '\'
@@ -140,13 +140,13 @@ require_once('api/roomhandler.php');
                 http_response_code(500);
                 echo '<h1 class="cover-heading">ProperLab Media</h1>
                 <p class="lead">Un reproductor multimedia minimalista online para ver series o películas con amigos.</p>';
-                echo '<p class="lead">' . $e->getMessage() . '</p> <button class="btn btn-secondary" type="button" onclick="location.href=\'/\'">Crea tu propia sala</button></p>';
+                echo '<p class="lead">' . $e->getMessage() . '</p> <button class="btn btn-secondary" type="button" onclick="location.href=\'./\'">Crea tu propia sala</button></p>';
             }
             ?>
             <p class="lead">
                 <?php
                 if (isset($response['id'])) {
-                    echo '<video id="media" src="' . $response['video'] . '" controls playsinline="true" preload="true" poster="/assets/img/icon/properlab-loader.gif" width="100%" height="100%">Tu navegador no soporta la etiqueta video.</video>';
+                    echo '<video id="media" src="' . $response['video'] . '" controls playsinline="true" preload="true" poster="assets/img/icon/properlab-loader.gif" width="100%" height="100%">Tu navegador no soporta la etiqueta video.</video>';
                 }
                 ?>
             </p>
@@ -173,7 +173,7 @@ require_once('api/roomhandler.php');
                     </div>
                     <div class="modal-footer">
                         <?php
-                        echo '<button type="button" class="btn btn-primary" onclick="$.post(\'/api/playAPI.php\',
+                        echo '<button type="button" class="btn btn-primary" onclick="$.post(\'api/playAPI.php\',
                         {
                             action: \'createUser\',
                             name: document.getElementById(\'name\').value,
@@ -202,10 +202,10 @@ require_once('api/roomhandler.php');
         </footer>
     </div>
 
-    <script src="/assets/vendor/js/jquery-3.4.1.min.js"></script>
-    <script src="/assets/vendor/js/popper.min.js"></script>
-    <script src="/assets/vendor/bootsrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/hellofriend.js"></script>
+    <script src="assets/vendor/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/vendor/js/popper.min.js"></script>
+    <script src="assets/vendor/bootsrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/hellofriend.js"></script>
 
     <script>
         function openNav() {

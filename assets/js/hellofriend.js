@@ -19,7 +19,7 @@ function fetchFriends() {
     }
 
     $.post(
-      "/api/playAPI.php",
+      "api/playAPI.php",
       {
         action: "fetchUsers",
         salaId: document.getElementById("salaId").value,
@@ -44,7 +44,7 @@ function fetchFriends() {
         alert("Ha ocurrido un error: " + data.responseText);
       });
       $.post(
-        "/api/playAPI.php",
+        "api/playAPI.php",
         {
           action: "update",
           userId: document.getElementById("nameId").value,
