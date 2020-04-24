@@ -78,7 +78,7 @@ $(document).ready(function () {
           $("#message").fadeOut(0, function () {
             $(this)
               .html(
-                "<p class='text-center'><img src='/assets/img/icon/ajax-loader.gif'></p>"
+                "<p class='text-center'><img src='assets/img/icon/ajax-loader.gif'></p>"
               )
               .fadeIn();
           });
