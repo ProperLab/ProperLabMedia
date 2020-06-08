@@ -311,4 +311,31 @@ class DataHandler
 
         return $resp;
     }
+
+    /**
+     * Get all rooms created by a IP
+     *
+     * @param  string $îp IP
+     *
+     * @return array
+     */
+    public function roomsCreatedByIP(string $ip): array
+    {
+        try {
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("SELECT video, sala FROM " . $dbconn->tbl_rooms . " WHERE ip = :ip");
+            $stmt->bindParam(':ip', $ip);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = [];
+        }
+
+        return $resp;
+    }
 }

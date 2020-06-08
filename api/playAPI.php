@@ -31,65 +31,71 @@
 
 require_once('roomhandler.php');
 try {
-    if (!isset($_POST['action'])) {
-        throw new Exception('Servidor: No has introducido todos los campos obligatorios');
-    }
-    $action = htmlspecialchars($_POST['action']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!isset($_POST['action'])) {
+            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+        }
+        $action = htmlspecialchars($_POST['action']);
 
-    if ($action == 'delete') {
-        if (!isset($_POST['videoUrl'])) {
-            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
-        }
-        $videoUrl = htmlspecialchars($_POST['videoUrl']);
-        $dh = new ProperLabMedia\RoomHandler;
-        $response = $dh->deleteRoom($videoUrl);
-        if ($response) {
-            echo $response;
-            return;
-        } else {
-            throw new Exception('Error al eliminar la sala');
-        }
-    } else if ($action == 'createUser') {
-        if (!isset($_POST['salaId']) || !isset($_POST['name'])) {
-            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
-        }
-        if (strlen($_POST['name']) < 4) throw new Exception('El nombre es demasiado corto');
-        $salaId = htmlspecialchars($_POST['salaId']);
-        $name = htmlspecialchars($_POST['name']);
-        $dh = new ProperLabMedia\RoomHandler;
-        $response = $dh->createUser($name, $salaId);
-        if (isset($response['id'])) {
-            echo $response['id'];
-            return;
-        } else if ($response == '429') {
-            http_response_code(429);
-            echo '¡Has superado el límite de 5 usuarios por IP! Borra algún usuario para poder crear otro nuevo o espera a que se borre si ya has cerrado la pestaña';
-            return;
-        } else {
-            throw new Exception('Error al crear usuario: ' + $response);
-        }
-    } else if ($action == 'update') {
-        if (!isset($_POST['userId']) || !isset($_POST['status']) || !isset($_POST['salaId'])) {
-            throw new Exception('Servidor: No has introducido todos los campos obligatorios');
-        }
-        $userId = htmlspecialchars($_POST['userId']);
-        $status = htmlspecialchars($_POST['status']);
-        $salaId = htmlspecialchars($_POST['salaId']);
-        $dh = new ProperLabMedia\RoomHandler;
-        $response = $dh->updateUser($userId, $status);
-        if ($response == true) {
-            $response = $dh->fetchUsers($salaId);
-            if ($response[0]) {
-                echo json_encode($response);
+        if ($action == 'delete') {
+            if (!isset($_POST['videoUrl'])) {
+                throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+            }
+            $videoUrl = htmlspecialchars($_POST['videoUrl']);
+            $dh = new ProperLabMedia\RoomHandler;
+            $response = $dh->deleteRoom($videoUrl);
+            if ($response) {
+                echo $response;
                 return;
             } else {
-                throw new Exception('Error al cargar los usuarios: ' + $response);
+                throw new Exception('Error al eliminar la sala');
+            }
+        } else if ($action == 'createUser') {
+            if (!isset($_POST['salaId']) || !isset($_POST['name'])) {
+                throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+            }
+            if (strlen($_POST['name']) < 4) throw new Exception('El nombre es demasiado corto');
+            $salaId = htmlspecialchars($_POST['salaId']);
+            $name = htmlspecialchars($_POST['name']);
+            $dh = new ProperLabMedia\RoomHandler;
+            $response = $dh->createUser($name, $salaId);
+            if (isset($response['id'])) {
+                echo $response['id'];
+                return;
+            } else if ($response == '429') {
+                http_response_code(429);
+                echo '¡Has superado el límite de 5 usuarios por IP! Borra algún usuario para poder crear otro nuevo o espera a que se borre si ya has cerrado la pestaña';
+                return;
+            } else {
+                throw new Exception('Error al crear usuario: ' + $response);
+            }
+        } else if ($action == 'update') {
+            if (!isset($_POST['userId']) || !isset($_POST['status']) || !isset($_POST['salaId'])) {
+                throw new Exception('Servidor: No has introducido todos los campos obligatorios');
+            }
+            $userId = htmlspecialchars($_POST['userId']);
+            $status = htmlspecialchars($_POST['status']);
+            $salaId = htmlspecialchars($_POST['salaId']);
+            $dh = new ProperLabMedia\RoomHandler;
+            $response = $dh->updateUser($userId, $status);
+            if ($response == true) {
+                $response = $dh->fetchUsers($salaId);
+                if ($response[0]) {
+                    echo json_encode($response);
+                    return;
+                } else {
+                    throw new Exception('Error al cargar los usuarios: ' + $response);
+                }
+            } else {
+                throw new Exception('Error al actualizar la información: ' + $response);
             }
         } else {
-            throw new Exception('Error al actualizar la información: ' + $response);
+            throw new Exception('La acción no es valida.');
         }
     } else {
-        throw new Exception('La acción no es valida.');
+        $dh = new ProperLabMedia\RoomHandler;
+        $response = $dh->roomsCreatedByIP($_SERVER["REMOTE_ADDR"]);
+        echo json_encode($response);
     }
 } catch (Exception $e) {
     http_response_code(500);

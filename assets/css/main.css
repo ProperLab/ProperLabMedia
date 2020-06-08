@@ -220,3 +220,25 @@ body {
     font-size: 18px;
   }
 }
+
+/*
+ * Table (Rooms table)
+ */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+td, th {
+  border: 1px solid #292929;
+  text-align: left;
+  padding: 8px;
+  word-wrap: break-word;
+}
+
+tr:nth-child(even) {
+  background-color: #292929;
+}

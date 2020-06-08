@@ -11,6 +11,43 @@ function validURL(str) {
   return !!pattern.test(str);
 }
 
+function fetchRooms() {
+  $.get("api/playAPI.php", function (data, status) {
+    var parsed = JSON.parse(data);
+    var newHTML = [];
+    newHTML.push(
+      "<p>Tus salas creadas:</p>" +
+        `<table>
+      <tr>
+        <th>Video</th>
+        <th style="width: 25%;">Sala</th>
+        <th style="width: 25%;">Ver</th>
+      </tr>`
+    );
+    parsed.forEach((element) => {
+      $("#rooms").html(element);
+      newHTML.push(
+        "<tr>" +
+          "<td>" +
+          element.video +
+          "</td>" +
+          "<td>" +
+          element.sala +
+          "</td>" +
+          "<td>" +
+          '<a href="play.php?p=' +
+          element.sala +
+          '">Ir a la sala' +
+          "</a>" +
+          "</td>" +
+          "</tr>"
+      );
+    });
+    newHTML.push("</table>");
+    $("#rooms").html(newHTML.join(""));
+  });
+}
+
 $(document).ready(function () {
   "use strict";
   $("#datos").click(function () {

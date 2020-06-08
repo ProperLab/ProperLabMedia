@@ -78,7 +78,7 @@ class RoomHandler
     {
         try {
             $dh = new DataHandler;
-            if ($dh->countRoomsPerIP($_SERVER["REMOTE_ADDR"], time() - 86400) >= 10) return '429';
+            if ($dh->countRoomsPerIP($_SERVER["REMOTE_ADDR"], time() - 18000) >= 5) return '429';
             $key = $this->generateRoomKey();
             if (!$dh->saveRoom($videoUrl, $key)) throw new Exception('Error al guardar la sala');
 
@@ -202,6 +202,25 @@ class RoomHandler
             if (!$users) return [['nombre' => 'Solo solín solito', 'estado' => 'No hay nadie en la sala']];
 
             return $users;
+        } catch (\PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Get all rooms created by a IP
+     *
+     * @param  string $ip IP
+     *
+     * @return array
+     */
+    public function roomsCreatedByIP($ip)
+    {
+        try {
+            $dh = new DataHandler;
+            $rooms = $dh->roomsCreatedByIP($ip);
+
+            return $rooms;
         } catch (\PDOException $e) {
             return $e->getMessage();
         }

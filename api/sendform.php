@@ -79,7 +79,7 @@ try {
         </div>';
     } else if ($response == '429') {
         http_response_code(429);
-        echo '¡Has alcanzado el límite de salas! Pide a algún amigo que cree otra sala por ti o espera a que se borre/borra alguna antes de crear otra sala. Recuerda que solo se pueden crear 10 salas por IP';
+        echo '¡Has alcanzado el límite de salas! Pide a algún amigo que cree otra sala por ti o (espera a que se borre)/(borra) alguna antes de crear otra sala. Recuerda que solo se pueden crear 5 salas cada 5 horas por IP';
     } else {
         //DB Failure
         throw new Exception('Ha ocurrido un error al crear la sala. ' . $response);
