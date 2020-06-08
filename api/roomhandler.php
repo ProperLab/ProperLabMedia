@@ -77,8 +77,9 @@ class RoomHandler
     public function createRoom($videoUrl)
     {
         try {
-            $key = $this->generateRoomKey();
             $dh = new DataHandler;
+            if ($dh->countRoomsPerIP($_SERVER["REMOTE_ADDR"], time() - 86400) >= 10) return '429';
+            $key = $this->generateRoomKey();
             if (!$dh->saveRoom($videoUrl, $key)) throw new Exception('Error al guardar la sala');
 
             return ['key' => $key];
@@ -145,6 +146,7 @@ class RoomHandler
             $dh = new DataHandler;
             $room = $dh->getRoom($room);
             if (!$room) throw new Exception('La sala no existe o ha sido eliminada');
+            if ($dh->countUsersPerIP($_SERVER["REMOTE_ADDR"]) >= 5) return '429';
 
             $userId = $dh->newUser($name, $room['sala']);
 

@@ -261,4 +261,54 @@ class DataHandler
 
         return $resp;
     }
+
+    /**
+     * Counts how many rooms a IP created in x time
+     *
+     * @param  string $ip IP
+     * @param  int $time Timestamp
+     *
+     * @return int Rooms created
+     */
+    public function countRoomsPerIP(string $ip, int $time): int
+    {
+        try {
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("SELECT COUNT(*) FROM " . $dbconn->tbl_rooms . " WHERE ip = :ip AND fecha > :time");
+            $stmt->bindParam(':ip', $ip);
+            $stmt->bindParam(':time', $time);
+            $stmt->execute();
+            $resp = $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = 0;
+        }
+
+        return $resp;
+    }
+
+    /**
+     * Counts how many users a IP created
+     *
+     * @param  string $ip IP
+     *
+     * @return int Current users created
+     */
+    public function countUsersPerIP(string $ip): int
+    {
+        try {
+            $dbconn = new DbConn;
+
+            $stmt = $dbconn->conn->prepare("SELECT COUNT(*) FROM " . $dbconn->tbl_users . " WHERE ip = :ip");
+            $stmt->bindParam(':ip', $ip);
+            $stmt->execute();
+            $resp = $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            $resp = 0;
+        }
+
+        return $resp;
+    }
 }

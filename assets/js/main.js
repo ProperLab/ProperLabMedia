@@ -56,15 +56,27 @@ $(document).ready(function () {
         error: function (textStatus, errorThrown) {
           console.log(textStatus);
           console.log(errorThrown);
-          $("#message").fadeOut(0, function () {
-            $(this)
-              .html(
-                "<div class='alert alert-danger'>Ha ocurrido un error interno del servidor, si el error persiste contacte con ProperLab o crea un issue en Github. Error:" +
-                  textStatus.responseText +
-                  "</div>"
-              )
-              .fadeIn();
-          });
+          if (textStatus.status == 429) {
+            $("#message").fadeOut(0, function () {
+              $(this)
+                .html(
+                  "<div class='alert alert-warning'>" +
+                    textStatus.responseText +
+                    "</div>"
+                )
+                .fadeIn();
+            });
+          } else {
+            $("#message").fadeOut(0, function () {
+              $(this)
+                .html(
+                  "<div class='alert alert-danger'>Ha ocurrido un error interno del servidor, si el error persiste contacte con ProperLab o crea un issue en Github. Error:" +
+                    textStatus.responseText +
+                    "</div>"
+                )
+                .fadeIn();
+            });
+          }
           $("#video-url").attr("disabled", false);
           $("#datos").attr("disabled", false);
           $("#cerrar").attr("disabled", false);

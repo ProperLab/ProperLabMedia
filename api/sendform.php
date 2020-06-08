@@ -47,7 +47,7 @@ try {
     $dh = new ProperLabMedia\RoomHandler;
     $response = $dh->createRoom($videoUrl);
     //Success
-    if ($response['key']) {
+    if (isset($response['key'])) {
         echo '<div class="alert alert-dark">
         ¡Sala creada correctamente! Comparte este link con tus amigos:
         <div class="input-group">
@@ -77,6 +77,9 @@ try {
         }
         </script>
         </div>';
+    } else if ($response == '429') {
+        http_response_code(429);
+        echo '¡Has alcanzado el límite de salas! Pide a algún amigo que cree otra sala por ti o espera a que se borre/borra alguna antes de crear otra sala. Recuerda que solo se pueden crear 10 salas por IP';
     } else {
         //DB Failure
         throw new Exception('Ha ocurrido un error al crear la sala. ' . $response);

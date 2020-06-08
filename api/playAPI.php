@@ -58,8 +58,12 @@ try {
         $name = htmlspecialchars($_POST['name']);
         $dh = new ProperLabMedia\RoomHandler;
         $response = $dh->createUser($name, $salaId);
-        if ($response['id']) {
+        if (isset($response['id'])) {
             echo $response['id'];
+            return;
+        } else if ($response == '429') {
+            http_response_code(429);
+            echo '¡Has superado el límite de 5 usuarios por IP! Borra algún usuario para poder crear otro nuevo o espera a que se borre si ya has cerrado la pestaña';
             return;
         } else {
             throw new Exception('Error al crear usuario: ' + $response);

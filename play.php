@@ -186,7 +186,7 @@ require_once('api/roomhandler.php');
                             fetchFriends();
                         })
                         .fail (function (data) {
-                            alert(\'Ha ocurrido un error al crear el usuario. \'+data.responseText);
+                            alert(\'Ha ocurrido un error al crear el usuario: \'+data.responseText);
                             $(\'#startSession\').modal(\'show\');
                         });">¡Empezar!</button>'
                         ?>
